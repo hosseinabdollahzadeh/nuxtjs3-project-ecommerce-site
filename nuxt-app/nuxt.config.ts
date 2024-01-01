@@ -9,5 +9,10 @@ export default defineNuxtConfig({
       }
     }
   },
+  runtimeConfig:{
+    public: {
+      apiBaseUrl: "http://laravel9-api-project-ecommerce.test/api"
+    }
+  },
   css: ["~/assets/css/main.css"],
 })
