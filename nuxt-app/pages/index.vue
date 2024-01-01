@@ -1,7 +1,7 @@
 <template>
   <Slider />
   <Features />
-  <ProductTab />
+  <ProductTabs />
 </template>
 <script setup lang="ts">
 import Slider from "~/components/Slider.vue";
