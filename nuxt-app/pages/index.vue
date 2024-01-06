@@ -3,6 +3,7 @@
   <Features />
   <ProductTabs />
   <AboutUs />
+  <ContactUs />
 </template>
 <script setup lang="ts">
 import Slider from "~/components/Slider.vue";
