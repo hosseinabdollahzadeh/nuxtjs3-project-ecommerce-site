@@ -1,11 +1,6 @@
 <template>
-  <div>
-    <LayoutHeader />
-    <NuxtPage />
-    <Footer />
-  </div>
+  <NuxtLoadingIndicator color="ffbe33" />
+  <LayoutHeader/>
+  <NuxtPage/>
+  <Footer/>
 </template>
-<script setup lang="ts">
-import Slider from "~/components/Slider.vue";
-import Footer from "~/components/layout/Footer.vue";
-</script>
