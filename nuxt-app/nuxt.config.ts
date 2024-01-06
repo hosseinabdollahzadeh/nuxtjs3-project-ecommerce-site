@@ -17,8 +17,8 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
 
   // for old browser
-  // build:{
-  //   transpile: ['vue-toastification'],
-  // }
+  build:{
+    transpile: ['vue-toastification'],
+  }
 
 })
