@@ -6,7 +6,7 @@
           <div>
             <label class="form-label">جستجو</label>
             <div class="input-group mb-3">
-              <input type="text" v-model="search" class="form-control" placeholder="نام محصول ..."
+              <input type="text" v-model="search" @input="checkSearchBox" class="form-control" placeholder="نام محصول ..."
                      aria-label="Recipient's username" aria-describedby="basic-addon2">
               <button @click="search !== '' && handleFilter({search: search})" class="input-group-text"
                       id="basic-addon2">
@@ -21,7 +21,9 @@
             </div>
             <ul>
               <li v-for="category in categories.data" :key="category.id"
-                  @click="handleFilter({category: category.id})" class="my-2 cursor-pointer">
+                  @click="handleFilter({category: category.id})" class="my-2 cursor-pointer"
+                  :class="{'filter-list-active': route.query.hasOwnProperty('category') && route.query.category == category.id}"
+              >
                 {{ category.name }}
               </li>
             </ul>
@@ -30,32 +32,37 @@
           <div>
             <label class="form-label">مرتب سازی</label>
             <div class="form-check my-2">
-              <input class="form-check-input" @click="handleFilter({sortBy: 'max'})" type="radio"
+              <input class="form-check-input"
+                     @click="handleFilter({sortBy: 'max'})" type="radio"
+                     :checked="route.query.hasOwnProperty('sortBy') && route.query.sortBy == 'max'"
                      name="flexRadioDefault" id="flexRadioDefault1">
               <label class="form-check-label cursor-pointer" for="flexRadioDefault1">
                 بیشترین قیمت
               </label>
             </div>
             <div class="form-check my-2">
-              <input class="form-check-input" @click="handleFilter({sortBy: 'min'})" type="radio"
-                     name="flexRadioDefault" id="flexRadioDefault2"
-                     checked>
+              <input class="form-check-input"
+                     @click="handleFilter({sortBy: 'min'})" type="radio"
+                     :checked="route.query.hasOwnProperty('sortBy') && route.query.sortBy == 'min'"
+                     name="flexRadioDefault" id="flexRadioDefault2">
               <label class="form-check-label cursor-pointer" for="flexRadioDefault2">
                 کمترین قیمت
               </label>
             </div>
             <div class="form-check my-2">
-              <input class="form-check-input" @click="handleFilter({sortBy: 'bestseller'})" type="radio"
-                     name="flexRadioDefault" id="flexRadioDefault3"
-                     checked>
+              <input class="form-check-input"
+                     @click="handleFilter({sortBy: 'bestseller'})" type="radio"
+                     :checked="route.query.hasOwnProperty('sortBy') && route.query.sortBy == 'bestseller'"
+                     name="flexRadioDefault" id="flexRadioDefault3">
               <label class="form-check-label cursor-pointer" for="flexRadioDefault3">
                 پرفروش ترین
               </label>
             </div>
             <div class="form-check my-2">
-              <input class="form-check-input" @click="handleFilter({sortBy: 'sale'})" type="radio"
-                     name="flexRadioDefault" id="flexRadioDefault4"
-                     checked>
+              <input class="form-check-input"
+                     @click="handleFilter({sortBy: 'sale'})" type="radio"
+                     :checked="route.query.hasOwnProperty('sortBy') && route.query.sortBy == 'sale'"
+                     name="flexRadioDefault" id="flexRadioDefault4">
               <label class="form-check-label cursor-pointer" for="flexRadioDefault4">
                 با تخفیف
               </label>
@@ -111,6 +118,13 @@ const {data, refresh, pending} = await useFetch(() => `${apiBaseUrl}/menu`, {
   query: query
 });
 
+watch(() => {
+  if(Object.keys(route.query).length === 0){
+    query.value = {};
+    refresh();
+  }
+});
+
 function handleFilter(param) {
   query.value = {...route.query, ...param}
 
@@ -121,7 +135,17 @@ function handleFilter(param) {
     path: '/menu',
     query: query.value
   })
+}
 
-  refresh();
+function checkSearchBox(element){
+  if(element.target.value === ''){
+    if(query.value.hasOwnProperty('search')){
+      delete query.value.search;
+    }
+    router.push({
+      path: '/menu',
+      query: query.value
+    })
+  }
 }
 </script>
