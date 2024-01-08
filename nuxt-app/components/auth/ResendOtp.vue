@@ -7,16 +7,22 @@
           {{ minutes }} : {{ seconds }}
         </vue-countdown>
       </div>
-      <button v-else class="btn btn-dark">
+      <button @click="resend"  :disabled="loading" v-else class="btn btn-dark">
         ارسال دوباره
+        <div v-if="loading" class="spinner-border spinner-border-sm sm-2"></div>
       </button>
     </div>
   </ClientOnly>
 </template>
 <script setup>
 import VueCountdown from '@chenfengyuan/vue-countdown';
+import {useToast} from 'vue-toastification';
+
+const emit = defineEmits(['resendOtpErrors'])
 
 const showResendOtpButton = ref(false);
+const toast = useToast();
+const loading = ref(false);
 
 function onCountdownEnd() {
   showResendOtpButton.value = true;
@@ -30,5 +36,21 @@ function transformSlotProps(props) {
   });
 
   return formattedProps;
+}
+
+async function resend() {
+  try {
+    loading.value = true;
+
+    await $fetch('/api/auth/resendOtp', {
+      method: 'POST',
+    })
+    toast.success("کد ورود دوباره برای شما ارسال شد.");
+    showResendOtpButton.value = false;
+  } catch (error) {
+    emit('resendOtpErrors', Object.values(error.data.data.message).flat())
+  } finally {
+    loading.value = false;
+  }
 }
 </script>
