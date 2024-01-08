@@ -39,7 +39,10 @@
                                         3
                                     </span>
                 </a>
-                <NuxtLink to="/auth/login" class="btn-auth">
+                <NuxtLink v-if="authUser" to="/profile" class="btn-auth">
+                  پروفایل
+                </NuxtLink>
+                <NuxtLink v-else to="/auth/login" class="btn-auth">
                   ورود
                 </NuxtLink>
               </div>
@@ -51,3 +54,9 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import {useAuth} from "~/composables/useAuth.js";
+
+const { authUser } = useAuth();
+</script>

@@ -24,6 +24,7 @@
 <script setup>
 import {useToast} from "vue-toastification";
 
+const {authUser} = useAuth();
 const otp = ref(null);
 const toast = useToast();
 const errors = ref([]);
@@ -51,6 +52,7 @@ async function checkOtp() {
       body: {otp: otp.value}
     })
     toast.success("با موفقیت وارد شدید.");
+    authUser.value = data;
   } catch (error) {
     errors.value = Object.values(error.data.data.message).flat();
   } finally {
