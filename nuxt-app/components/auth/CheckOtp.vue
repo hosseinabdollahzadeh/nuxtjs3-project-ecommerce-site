@@ -11,10 +11,13 @@
           <label for="otp" class="form-label">کد ورود</label>
           <input v-model="otp" type="text" class="form-control" id="otp">
         </div>
-        <button type="submit" class="btn btn-primary btn-auth">
-          تأیید
-          <div v-if="loading" class="spinner-border spinner-border-sm sm-2"></div>
-        </button>
+        <div class="d-flex align-items-center justify-content-between">
+          <button type="submit" class="btn btn-primary btn-auth">
+            تأیید
+            <div v-if="loading" class="spinner-border spinner-border-sm sm-2"></div>
+          </button>
+          <AuthResendOtp />
+        </div>
       </form>
     </div>
   </div>

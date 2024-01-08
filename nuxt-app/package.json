@@ -15,6 +15,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@chenfengyuan/vue-countdown": "^2.1.2",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.11.2",
     "leaflet": "^1.9.3",
