@@ -42,7 +42,6 @@ async function checkOtp() {
     return;
   }
 
-  return 'Success'
   try {
     loading.value = true;
     errors.value = [];
@@ -51,7 +50,7 @@ async function checkOtp() {
       method: 'POST',
       body: {otp: otp.value}
     })
-    console.log(data)
+    toast.success("با موفقیت وارد شدید.");
   } catch (error) {
     errors.value = Object.values(error.data.data.message).flat();
   } finally {
