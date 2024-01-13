@@ -6,17 +6,17 @@
           <FormKit type="text" name="name" id="name" label="نام و نام خانوادگی" label-class="form-label"
                    input-class="form-control" validation="required"
                    :validation-messages="{required: 'نام و نام خانوادگی الزامی است.'}"
-                   message-class="form-text text-danger"/>
+                   message-class="form-text text-danger" :value="user.name"/>
         </div>
         <div class="col col-md-6">
           <FormKit type="email" name="email" id="email" label="ایمیل" label-class="form-label"
-                   input-class="form-control" validation="required"
-                   :validation-messages="{required: 'ایمیل الزامی است.'}"
-                   message-class="form-text text-danger"/>
+                   input-class="form-control" validation="required|email"
+                   :validation-messages="{required:'ایمیل الزامی است.', email:'ایمیل وارد شده معتبر نیست.'}"
+                   message-class="form-text text-danger" :value="user.email"/>
         </div>
         <div class="col col-md-6">
           <label class="form-label">شماره تلفن</label>
-          <input type="text" disabled class="form-control" value="09100000000">
+          <input type="text" disabled class="form-control" :value="user.cellphone">
         </div>
 
 
@@ -29,6 +29,11 @@
 </template>
 
 <script setup>
+
+const {data: user} = await useFetch('/api/profile/info', {
+  headers: useRequestHeaders(['cookie'])
+});
+
 function edit(formData) {
   console.log(formData)
 }
