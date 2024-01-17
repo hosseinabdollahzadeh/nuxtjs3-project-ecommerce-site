@@ -1,5 +1,6 @@
 <template>
-  <FormKit type="form" id="createAddress" @submit="create" #default="{ value }" :incomplete-message="false" :actions="false">
+  <FormKit type="form" id="createAddress" @submit="create" #default="{ value }" :incomplete-message="false"
+           :actions="false">
     <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       ایجاد آدرس جدید
@@ -98,7 +99,6 @@ async function create(formData) {
     reset('createAddress');
     toast.success("آدرس با موفقیت ایجاد شد.");
   } catch (error) {
-    console.log(error)
     errors.value = Object.values(error.data.data.message).flat();
   } finally {
     loading.value = false;
