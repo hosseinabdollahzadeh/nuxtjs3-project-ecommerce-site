@@ -68,6 +68,7 @@
           ویرایش
           <div v-if="loading" class="spinner-border spinner-border-sm sm-2"></div>
         </FormKit>
+          <ProfileAddressDelete :addressId="props.address.id" />
       </div>
     </div>
   </FormKit>

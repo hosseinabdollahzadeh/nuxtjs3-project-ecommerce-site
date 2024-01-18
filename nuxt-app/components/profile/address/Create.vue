@@ -79,6 +79,7 @@ const loading = ref(false);
 const toast = useToast();
 
 const props = defineProps(['provinces', 'cities'])
+const refreshGetAddress = inject('refreshGetAddress');
 
 const cityEl = ref(null);
 
@@ -95,8 +96,8 @@ async function create(formData) {
       method: 'POST',
       body: formData
     })
-
     reset('createAddress');
+    refreshGetAddress();
     toast.success("آدرس با موفقیت ایجاد شد.");
   } catch (error) {
     errors.value = Object.values(error.data.data.message).flat();
