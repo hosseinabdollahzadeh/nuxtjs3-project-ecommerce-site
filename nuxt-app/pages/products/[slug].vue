@@ -70,6 +70,19 @@
         </div>
       </div>
     </div>
+
+    <hr>
+
+    <section class="food_section my-5">
+      <div class="container">
+        <div class="row gx-3">
+          <div v-for="product in randomProduct.data" :key="product.id" class="col-sm-6 col-lg-3">
+            <ProductCard :product="product" />
+          </div>
+        </div>
+      </div>
+    </section>
+
   </section>
 </template>
 
@@ -79,7 +92,8 @@ import {salePercent} from "../../utils/helpers.js";
 
 const route = useRoute();
 const {public: {apiBaseUrl}} = useRuntimeConfig();
-console.log(route.params.slug)
+
 const {data: product} = await useFetch(`${apiBaseUrl}/products/${route.params.slug}`);
+const {data: randomProduct} = await useFetch(`${apiBaseUrl}/random-products?count=4`);
 
 </script>
