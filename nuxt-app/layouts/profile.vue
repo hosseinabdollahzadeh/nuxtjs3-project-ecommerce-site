@@ -8,10 +8,10 @@
               <NuxtLink to="/profile">اطلاعات کاربر</NuxtLink>
             </li>
             <li class="list-group-item">
-              <NuxtLink href="/profile/addresses">آدرس ها</NuxtLink>
+              <NuxtLink to="/profile/addresses">آدرس ها</NuxtLink>
             </li>
             <li class="list-group-item">
-              <a href="./orders.html">سفارشات</a>
+              <NuxtLink to="/profile/orders">سفارشات</NuxtLink>
             </li>
             <li class="list-group-item">
               <a href="./transactions.html">تراکنش ها</a>
