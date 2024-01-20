@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/main.css"],
 
-  modules: ['@formkit/nuxt'],
+  modules: ['@formkit/nuxt', '@pinia/nuxt'],
 
   // for old browser
   build:{
