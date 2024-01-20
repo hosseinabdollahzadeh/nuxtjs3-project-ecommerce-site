@@ -21,13 +21,13 @@
               <p>{{ product.data.description }}</p>
 
               <div class="mt-5 d-flex">
-                <button class="btn-add">افزودن به سبد خرید</button>
+                <button @click="addToCart(product.data)" class="btn-add">افزودن به سبد خرید</button>
                 <div class="input-counter ms-4">
-                                    <span class="plus-btn">
+                                    <span class="plus-btn" @click="() => quantity < product.data.quantity && quantity++">
                                         +
                                     </span>
-                  <div class="input-number">1</div>
-                  <span class="minus-btn">
+                  <div class="input-number">{{ quantity }}</div>
+                  <span class="minus-btn" @click="() => quantity > 1 && quantity--">
                                         -
                                     </span>
                 </div>
@@ -87,13 +87,19 @@
 </template>
 
 <script setup>
+import {useCartStore} from "../../store/cart"
 
-import {salePercent} from "../../utils/helpers.js";
-
+const quantity = ref(1);
 const route = useRoute();
 const {public: {apiBaseUrl}} = useRuntimeConfig();
 
 const {data: product} = await useFetch(`${apiBaseUrl}/products/${route.params.slug}`);
 const {data: randomProduct} = await useFetch(`${apiBaseUrl}/random-products?count=4`);
 
+const cart = useCartStore()
+
+function addToCart(product){
+  cart.remove(product.id)
+  cart.addToCart(product, quantity.value)
+}
 </script>
