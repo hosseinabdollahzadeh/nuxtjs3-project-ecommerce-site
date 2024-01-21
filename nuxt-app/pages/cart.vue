@@ -26,6 +26,7 @@
                       <td>
                         <div>
                           <span v-if="item.is_sale">
+                          <del>{{ numberFormat(item.price) }}</del>
                             {{ numberFormat(item.sale_price)}}
                           </span>
                           <span v-else>{{ numberFormat(item.price)}}</span>

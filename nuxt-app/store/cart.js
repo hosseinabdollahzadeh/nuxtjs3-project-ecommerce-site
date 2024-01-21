@@ -36,9 +36,8 @@ export const useCartStore = defineStore('cart', {
             const item = this.cart.find(p => p.id == id);
             if (item) {
                 if (item.qty > 1) {
-                    item.qty++
+                    item.qty--
                 }
-                item.qty--
             }
         },
         remove(id) {
