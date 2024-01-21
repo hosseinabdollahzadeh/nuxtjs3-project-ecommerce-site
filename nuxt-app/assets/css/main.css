@@ -1198,7 +1198,7 @@ a:focus {
     color: #222831;
 }
 
-.cart-loadnig,
+.cart-loading,
 .cart-empty {
     height: 75vh;
     display: flex;
@@ -1206,7 +1206,7 @@ a:focus {
     justify-content: center;
 }
 
-.cart-spiner {
+.cart-spinner {
     width: 3rem;
     height: 3rem;
 }
