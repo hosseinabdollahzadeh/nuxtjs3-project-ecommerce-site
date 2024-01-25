@@ -73,16 +73,7 @@
                 </div>
               </div>
               <div class="col-12 col-md-6 d-flex justify-content-end align-items-baseline">
-                <div>
-                  انتخاب آدرس
-                </div>
-                <select style="width: 200px;" class="form-select ms-3" aria-label="Default select example">
-                  <option selected>منزل</option>
-                  <option value="1">محل کار</option>
-                </select>
-                <a href="profile.html" class="btn btn-primary">
-                  ایجاد آدرس
-                </a>
+                <CartAddress @set-address-id="(id) => addressId = id" />
               </div>
             </div>
             <div class="row justify-content-center mt-5">
@@ -151,6 +142,7 @@ const cart = useCartStore();
 const countCart = computed(() => cart.count)
 const cartItems = computed(() => cart.allItems)
 const totalAmount = computed(() => cart.totalAmount)
+const addressId = ref(null)
 
 const coupon = reactive({
   code: '',
