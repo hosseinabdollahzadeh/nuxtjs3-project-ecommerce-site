@@ -69,7 +69,7 @@
             <div class="row mt-4">
               <div class="col-12 col-md-6">
                 <div class="input-group mb-3">
-                  <CartCoupon />
+                  <CartCoupon :coupon="coupon" />
                 </div>
               </div>
               <div class="col-12 col-md-6 d-flex justify-content-end align-items-baseline">
@@ -94,21 +94,21 @@
                       <li class="list-group-item d-flex justify-content-between">
                         <div>مجموع قیمت :</div>
                         <div>
-                          535,000 تومان
+                          {{ numberFormat(totalAmount) }} تومان
                         </div>
                       </li>
                       <li class="list-group-item d-flex justify-content-between">
                         <div>تخفیف :
-                          <span class="text-danger ms-1">10%</span>
+                          <span class="text-danger ms-1">{{ coupon.percent }}%</span>
                         </div>
                         <div class="text-danger">
-                          53,500 تومان
+                          {{ numberFormat((totalAmount * coupon.percent) / 100) }} تومان
                         </div>
                       </li>
                       <li class="list-group-item d-flex justify-content-between">
                         <div>قیمت پرداختی :</div>
                         <div>
-                          481,500 تومان
+                          {{ numberFormat(totalAmount - (totalAmount * coupon.percent) / 100) }} تومان
                         </div>
                       </li>
                     </ul>
@@ -150,7 +150,12 @@ const  toast = useToast();
 const cart = useCartStore();
 const countCart = computed(() => cart.count)
 const cartItems = computed(() => cart.allItems)
+const totalAmount = computed(() => cart.totalAmount)
 
+const coupon = reactive({
+  code: '',
+  percent: 0
+})
 function removeFromCart(id){
   cart.remove(id)
   toast.warning('محصول مورد نظر از سبد خرید پاک شد')
