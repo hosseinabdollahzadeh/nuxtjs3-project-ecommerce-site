@@ -1,4 +1,4 @@
-// export default defineNuxtPlugin(async(nuxtApp) => {
+export default defineNuxtPlugin(async(nuxtApp) => {
 //     const {authUser} = useAuth();
 //     try {
 //         const user = await $fetch('/api/auth/me', {
@@ -9,4 +9,4 @@
 //     }catch (error){
 //         authUser.value = null;
 //     }
-// })
+})
