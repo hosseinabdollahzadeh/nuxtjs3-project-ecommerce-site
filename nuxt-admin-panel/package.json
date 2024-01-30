@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@amcharts/amcharts5": "^5.3.0",
+    "@formkit/nuxt": "^1.5.3",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.11.3",
     "vue-toastification": "^2.0.0-rc.5"

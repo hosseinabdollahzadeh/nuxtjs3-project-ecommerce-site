@@ -1,17 +1,12 @@
 <template>
-  <div
-      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-  >
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h4 class="fw-bold">کاربران</h4>
-    <button
-        type="button"
-        class="btn btn-sm btn-outline-dark"
-    >
+    <NuxtLink to="/users/create" class="btn btn-sm btn-outline-dark">
       ایجاد کاربر
-    </button>
+    </NuxtLink>
   </div>
 
-  <UserList :users="data.users" />
+  <UserList :users="data.users"/>
 
   <div class="d-flex justify-content-center">
     <nav aria-label="navigation">
@@ -36,7 +31,7 @@ const {data, refresh} = await useFetch(() => '/api/global', {
   headers: useRequestHeaders(['cookie'])
 })
 
-function paginate(number){
+function paginate(number) {
   page.value = number;
   refresh()
 }

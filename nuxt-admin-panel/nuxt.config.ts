@@ -22,5 +22,11 @@ export default defineNuxtConfig({
     // for old browser
     build: {
         transpile: ['vue-toastification'],
+    },
+    modules: ['@formkit/nuxt'],
+
+    formkit: {
+        // Experimental support for auto loading (see note):
+        autoImport: true
     }
 })
