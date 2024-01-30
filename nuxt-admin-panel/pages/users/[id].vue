@@ -22,9 +22,7 @@
 
     </div>
 
-    <button class="btn btn-sm btn-dark mt-5">
-      حذف
-    </button>
+    <UserDelete :userId="user.id" />
   </div>
 </template>
 

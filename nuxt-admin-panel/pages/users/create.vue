@@ -37,7 +37,7 @@
       </div>
     </div>
     <div>
-      <FormKit type="submit" input-class="btn btn-primary mt-4">
+      <FormKit type="submit" input-class="btn btn-sm btn-outline-dark mt-3">
         ایجاد کاربر
         <div v-if="loading" class="spinner-border spinner-border-sm sm-2"></div>
       </FormKit>
