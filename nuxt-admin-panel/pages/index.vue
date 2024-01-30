@@ -1,5 +1,11 @@
 <template>
-  Index Page
+  <div
+      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h4 class="fw-bold">داشبورد</h4>
+  </div>
+  <clientOnly>
+    <Chart :data="chartData" />
+  </clientOnly>
 </template>
 
 <script setup>
@@ -12,5 +18,4 @@ const {data: chartData} = await useFetch('/api/global', {
   headers: useRequestHeaders(['cookie'])
 })
 
-console.log(chartData.value)
 </script>
