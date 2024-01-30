@@ -13,16 +13,14 @@
       <tbody>
       <tr v-for="user in props.users" :key="user.id">
         <td>{{ user.name }}</td>
-        <td>{{  user.email }}</td>
+        <td>{{ user.email }}</td>
         <td>{{ user.cellphone }}</td>
         <td>{{ user.created_at }}</td>
         <td>
           <div class="d-flex">
-            <button
-                class="btn btn-sm btn-outline-dark me-2"
-            >
+            <NuxtLink :to="`/users/${user.id}`" class="btn btn-sm btn-outline-dark me-2">
               نمایش
-            </button>
+            </NuxtLink>
             <button class="btn btn-sm btn-dark">
               ویرایش
             </button>
