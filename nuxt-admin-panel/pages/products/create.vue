@@ -3,6 +3,12 @@
     <h4 class="fw-bold">ایجاد محصول</h4>
   </div>
 
+  <div v-if="errors.length > 0" class="alert alert-danger col-md-3 m-auto mb-4" role="alert">
+    <ul class="mb-0">
+      <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+    </ul>
+  </div>
+
   <ClientOnly fallback-tag="span" fallback="در حال بارگزاری ...">
     <FormKit type="form" id="createAddress" @submit="create" :incomplete-message="false" :actions="false">
       <div class="row g-4">
@@ -110,11 +116,22 @@
 </template>
 
 <script setup>
+import {useToast} from "vue-toastification";
+
+definePageMeta({
+  middleware: 'auth'
+})
+
+const toast = useToast()
+const errors = ref([])
+const loading = ref(null)
+
 
 const primaryImage = ref(null)
 const saleDateFrom = ref(null)
 const saleDateTo = ref(null)
 const images = ref(null)
+
 
 const {data: categories} = await useFetch('/api/global', {
   query: {url: '/categories'},
@@ -125,9 +142,51 @@ function imagesFile(el) {
   images.value = el.target.files
 }
 
-function create(formData) {
 
-  console.log(saleDateFrom.value, saleDateTo.value)
+async function create(data) {
+
+  if (!primaryImage.value) {
+    toast.error("فیلد تصویر اصلی الزامی است.")
+    return
+  }
+  const formData = new FormData()
+
+  if (images.value) {
+    for (let index = 0; index < images.value.length; index++) {
+      formData.append("images", images.value[index])
+    }
+  }
+
+  formData.append("primary_image", primaryImage.value)
+  formData.append("name", data.name)
+  formData.append("category_id", data.category_id)
+  formData.append("status", data.category_id)
+  formData.append("price", data.price)
+  formData.append("quantity", data.quantity)
+  formData.append("sale_price", data.sale_price)
+  formData.append("date_on_sale_from", saleDateFrom.value)
+  formData.append("date_on_sale_to", saleDateTo.value)
+  formData.append("description", data.description)
+
+
+  try {
+    loading.value = true
+    errors.value = []
+
+    await $fetch('/api/products/create', {
+      method: 'POST',
+      body: formData
+    })
+
+    toast.success('ایجاد محصول با موفقیت انجام شد')
+    return navigateTo('/products')
+  } catch (error) {
+
+    errors.value = Object.values(error.data.data.message).flat();
+
+  } finally {
+    loading.value = false
+  }
 }
 
 </script>

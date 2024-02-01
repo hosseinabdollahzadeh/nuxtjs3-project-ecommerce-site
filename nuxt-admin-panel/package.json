@@ -19,6 +19,8 @@
     "@formkit/nuxt": "^1.5.3",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.11.3",
+    "form-data": "^4.0.0",
+    "h3-formidable": "^0.2.2",
     "vue-toastification": "^2.0.0-rc.5",
     "vue3-persian-datetime-picker": "^1.2.2"
   }

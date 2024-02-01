@@ -22,12 +22,12 @@
         <td>{{ product.status }}</td>
         <td>
           <div class="d-flex">
-            <NuxtLink :to="`/products/${product.id}`" class="btn btn-sm btn-outline-dark me-2">
+            <a href="#" class="btn btn-sm btn-outline-dark me-2">
               نمایش
-            </NuxtLink>
-            <NuxtLink :to="`/products/edit/${product.id}`" class="btn btn-sm btn-dark">
+            </a>
+            <a href="#" class="btn btn-sm btn-dark">
               ویرایش
-            </NuxtLink>
+            </a>
           </div>
         </td>
       </tr>
