@@ -39,10 +39,10 @@
           </NuxtLink>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <NuxtLink class="nav-link" :class="{active: $route.path.includes('/coupons')}" to="/coupons">
             <i class="bi bi-percent me-2"></i>
             تخفیف ها
-          </a>
+          </NuxtLink>
         </li>
       </ul>
     </div>
