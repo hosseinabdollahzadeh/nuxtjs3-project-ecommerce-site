@@ -22,10 +22,16 @@
   </div>
 </template>
 <script setup>
+const props = defineProps({
+  primaryImage: {
+    type: String,
+    default: null
+  }
+})
 
 const emit = defineEmits(['setPrimaryImage'])
 
-const image = ref(null)
+const image = ref(props.primaryImage)
 const loading = ref(null)
 
 function imageFile(el) {
