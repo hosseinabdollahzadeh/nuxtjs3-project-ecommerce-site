@@ -1,42 +1,51 @@
-import {readFiles} from 'h3-formidable'
-import FormData from "form-data";
-import fs from "fs";
-
 export default defineEventHandler(async (event) => {
     const {public: {apiBaseUrl}} = useRuntimeConfig();
     const token = getCookie(event, 'token');
 
-    const {fields, files} = await readFiles(event, {
-        includeFields: true
-    });
+    const formData = await readFormData(event);
+
+    // const formData = await readFormData(event)
+
+    // Create a new FormData object and append the grouped 'images' array
+    const newData = new FormData();
+
+    newData.append('primary_image', formData.get('primary_image'));
+
+    if (formData.has('images')) {
+        // Group 'images' entries into an array
+        const groupedImages = formData.getAll('images');
+        // Append the grouped 'images' array to the new FormData object
+        groupedImages.forEach((image, index) => {
+            newData.append(`images[${index}]`, image);
+        });
+    }
+
+    newData.append('name', formData.get('name'));
+    newData.append('category_id', formData.get('category_id'));
+    newData.append('status', formData.get('status'));
+    newData.append('price', formData.get('price'));
+    newData.append('quantity', formData.get('quantity'));
+
+    if (formData.has('sale_price')) {
+        newData.append('sale_price', formData.get('sale_price'));
+    }
+    if (formData.has('date_on_sale_from')) {
+        newData.append('date_on_sale_from', formData.get('date_on_sale_from'));
+    }
+    if (formData.has('date_on_sale_to')) {
+        newData.append('date_on_sale_to', formData.get('date_on_sale_to'));
+    }
+    newData.append('description', formData.get('description'));
 
 
-    // todo check for reason of not recognize formData on apiBaseUrl/products and return error for required fields and files
+    // Now 'newData' contains the organized FormData with 'images' as an array
+    // console.log(newData);
+
+
     try {
-
-        const formData = new FormData();
-
-        if (files.images && files.images.length > 0) {
-            for (let index = 0; index < files.images.length; index++) {
-                formData.append("images[]", fs.createReadStream(files.images[index].filepath));
-            }
-        }
-
-        formData.append("primary_image", fs.createReadStream(files.primary_image[0].filepath));
-        formData.append("name", fields.name[0]);
-        formData.append("category_id", fields.category_id[0]);
-        formData.append("status", fields.status[0]);
-        formData.append("price", fields.price[0]);
-        formData.append("quantity", fields.quantity[0]);
-        formData.append("sale_price", fields.sale_price[0]);
-        formData.append("date_on_sale_from", fields.date_on_sale_from[0]);
-        formData.append("date_on_sale_to", fields.date_on_sale_to[0]);
-        formData.append("description", fields.description[0]);
-
-
         const data = await $fetch(`${apiBaseUrl}/products`, {
             method: 'POST',
-            body: formData,
+            body: newData,
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`

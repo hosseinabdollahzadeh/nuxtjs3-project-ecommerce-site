@@ -106,7 +106,7 @@
 
         <FormKit type="submit" input-class="btn btn-sm btn-outline-dark mt-3 mb-5">
           ایجاد محصول
-          <!--      <div v-if="loading" class="spinner-border spinner-border-sm sm-2"></div>-->
+          <div v-if="loading" class="spinner-border spinner-border-sm sm-2"></div>
         </FormKit>
 
       </div>
