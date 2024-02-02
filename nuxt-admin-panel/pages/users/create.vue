@@ -47,6 +47,10 @@
 <script setup>
 import {useToast} from "vue-toastification";
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const errors = ref([]);
 const loading = ref(false);
 const toast = useToast();
