@@ -27,10 +27,10 @@
           </NuxtLink>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <NuxtLink class="nav-link" :class="{active: $route.path.includes('/orders')}" to="/orders">
             <i class="bi bi-basket me-2"></i>
             سفارشات
-          </a>
+          </NuxtLink>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
